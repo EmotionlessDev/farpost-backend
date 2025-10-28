@@ -24,9 +24,16 @@ class City
     #[ORM\OneToMany(targetEntity: Street::class, mappedBy: 'city')]
     private Collection $streets;
 
+    /**
+     * @var Collection<int, Building>
+     */
+    #[ORM\OneToMany(targetEntity: Building::class, mappedBy: 'city')]
+    private Collection $buildings;
+
     public function __construct()
     {
         $this->streets = new ArrayCollection();
+        $this->buildings = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -70,6 +77,36 @@ class City
             // set the owning side to null (unless already changed)
             if ($street->getCity() === $this) {
                 $street->setCity(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Building>
+     */
+    public function getBuildings(): Collection
+    {
+        return $this->buildings;
+    }
+
+    public function addBuilding(Building $building): static
+    {
+        if (!$this->buildings->contains($building)) {
+            $this->buildings->add($building);
+            $building->setCity($this);
+        }
+
+        return $this;
+    }
+
+    public function removeBuilding(Building $building): static
+    {
+        if ($this->buildings->removeElement($building)) {
+            // set the owning side to null (unless already changed)
+            if ($building->getCity() === $this) {
+                $building->setCity(null);
             }
         }
 
