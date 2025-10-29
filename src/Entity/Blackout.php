@@ -19,7 +19,8 @@ class Blackout
     #[ORM\Column]
     private ?\DateTime $start_date = null;
 
-    #[ORM\Column]
+    #[ORM\Column(type: 'datetime', nullable: true)]
+
     private ?\DateTime $end_date = null;
 
     #[ORM\Column(length: 255)]
@@ -38,11 +39,11 @@ class Blackout
      * @var Collection<int, Building>
      */
     #[ORM\ManyToMany(targetEntity: Building::class, inversedBy: 'blackouts')]
-    private Collection $Ðbuilding;
+    private Collection $ï¿½building;
 
     public function __construct()
     {
-        $this->Ðbuilding = new ArrayCollection();
+        $this->ï¿½building = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -125,15 +126,15 @@ class Blackout
     /**
      * @return Collection<int, Building>
      */
-    public function getÐbuilding(): Collection
+    public function getï¿½building(): Collection
     {
-        return $this->Ðbuilding;
+        return $this->ï¿½building;
     }
 
     public function addBuilding(Building $building): static
     {
-        if (!$this->Ðbuilding->contains($building)) {
-            $this->Ðbuilding->add($building);
+        if (!$this->ï¿½building->contains($building)) {
+            $this->ï¿½building->add($building);
         }
 
         return $this;
@@ -141,7 +142,7 @@ class Blackout
 
     public function removeBuilding(Building $building): static
     {
-        $this->Ðbuilding->removeElement($building);
+        $this->ï¿½building->removeElement($building);
 
         return $this;
     }
