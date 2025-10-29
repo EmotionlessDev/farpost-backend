@@ -16,6 +16,16 @@ class BlackoutRepository extends ServiceEntityRepository
         parent::__construct($registry, Blackout::class);
     }
 
+    public function findByPeriod(\DateTime $startDate): array
+    {
+        return $this->createQueryBuilder('b')
+            ->andWhere('b.start_date >= :startDate')
+            ->setParameter('startDate', $startDate)
+            ->orderBy('b.start_date', 'ASC')
+            ->getQuery()
+            ->getResult();
+    }
+
 //    /**
 //     * @return Blackout[] Returns an array of Blackout objects
 //     */
