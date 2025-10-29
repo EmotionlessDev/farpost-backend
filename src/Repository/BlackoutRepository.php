@@ -20,6 +20,7 @@ class BlackoutRepository extends ServiceEntityRepository
     {
         return $this->createQueryBuilder('b')
             ->andWhere('b.start_date >= :startDate')
+            ->andWhere('b.end_date IS NULL OR b.end_date >= :startDate')
             ->setParameter('startDate', $startDate)
             ->orderBy('b.start_date', 'ASC')
             ->getQuery()
