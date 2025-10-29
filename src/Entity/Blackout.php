@@ -30,9 +30,6 @@ class Blackout
     private ?BlackoutType $type = null;
 
     #[ORM\Column(length: 255)]
-    private ?string $initiator_name = null;
-
-    #[ORM\Column(length: 255)]
     private ?string $source = null;
 
     /**
@@ -40,6 +37,10 @@ class Blackout
      */
     #[ORM\ManyToMany(targetEntity: Building::class, inversedBy: 'blackouts')]
     private Collection $�building;
+
+    #[ORM\ManyToOne(inversedBy: 'blackouts')]
+    #[ORM\JoinColumn(nullable: false)]
+    private ?Organizations $organization = null;
 
     public function __construct()
     {
@@ -99,18 +100,6 @@ class Blackout
         return $this;
     }
 
-    public function getInitiatorName(): ?string
-    {
-        return $this->initiator_name;
-    }
-
-    public function setInitiatorName(string $initiator_name): static
-    {
-        $this->initiator_name = $initiator_name;
-
-        return $this;
-    }
-
     public function getSource(): ?string
     {
         return $this->source;
@@ -143,6 +132,18 @@ class Blackout
     public function removeBuilding(Building $building): static
     {
         $this->�building->removeElement($building);
+
+        return $this;
+    }
+
+    public function getOrganization(): ?Organizations
+    {
+        return $this->organization;
+    }
+
+    public function setOrganization(?Organizations $organization): static
+    {
+        $this->organization = $organization;
 
         return $this;
     }
