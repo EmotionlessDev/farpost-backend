@@ -52,7 +52,7 @@ readonly class BlackoutService
 
         $countByType = [];
         foreach ($blackouts as $blackout) {
-            $type = $blackout->getType()->value;
+            $type = $blackout->getType();
             if (!isset($countByType[$type])) {
                 $countByType[$type] = 0;
             }
