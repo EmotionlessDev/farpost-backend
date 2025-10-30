@@ -27,6 +27,18 @@ class BlackoutRepository extends ServiceEntityRepository
             ->getResult();
     }
 
+    public function findRecentBlackouts(\DateTime $since): array
+    {
+        return $this->createQueryBuilder('b')
+            ->leftJoin('b.building', 'building')
+            ->addSelect('building')
+            ->where('b.start_date >= :since OR b.end_date >= :since')
+            ->setParameter('since', $since)
+            ->orderBy('b.start_date', 'DESC')
+            ->getQuery()
+            ->getResult();
+    }
+
 //    /**
 //     * @return Blackout[] Returns an array of Blackout objects
 //     */

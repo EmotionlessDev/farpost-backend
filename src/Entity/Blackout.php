@@ -112,7 +112,7 @@ class Blackout
     /**
      * @return Collection<int, Building>
      */
-    public function get�building(): Collection
+    public function getBuilding(): Collection
     {
         return $this->building;
     }
