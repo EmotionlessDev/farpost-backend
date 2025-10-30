@@ -30,7 +30,11 @@ cd farpost-backend
 ```
 make dc-up
 ```
-4. Приложение должно быть доступно по адресу `http://localhost:8000`.
+4. Накатите миграции:<br>
+```
+bin/console doctrine:migrations:migrate
+```
+5. Приложение должно быть доступно по адресу `http://localhost:8000`.
 
 ## ⚙️ Technologies  
 - **PHP 8.2+**  
