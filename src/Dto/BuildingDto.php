@@ -10,7 +10,8 @@ class BuildingDto
         public readonly ?string $number,
         public readonly ?string $street,
         public readonly ?string $city,
-        public readonly ?string $coordinates,
+        public readonly ?float $lat,
+        public readonly ?float $lon,
         public readonly ?string $organization,
         public readonly ?string $type,
     ) {}
@@ -22,7 +23,8 @@ class BuildingDto
             number: $building->getNumber(),
             street: $building->getStreet()?->getName(),
             city: $building->getCity()?->getName(),
-            coordinates: $building->getCoordinates(),
+            lat: $building->getLat(),
+            lon: $building->getLon(),
             organization: $building->getOrganization()?->getName(),
             type: $building->getType(),
         );

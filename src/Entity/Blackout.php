@@ -2,7 +2,6 @@
 
 namespace App\Entity;
 
-use App\Enum\BlackoutType;
 use App\Repository\BlackoutRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
@@ -26,8 +25,8 @@ class Blackout
     #[ORM\Column(length: 255)]
     private ?string $description = null;
 
-    #[ORM\Column(enumType: BlackoutType::class)]
-    private ?BlackoutType $type = null;
+    #[ORM\Column(type: 'string', length: 255)]
+    private ?string $type = null;
 
     #[ORM\Column(length: 255)]
     private ?string $source = null;
@@ -85,12 +84,12 @@ class Blackout
         return $this;
     }
 
-    public function getType(): ?BlackoutType
+    public function getType(): ?string
     {
         return $this->type;
     }
 
-    public function setType(BlackoutType $type): static
+    public function setType(string $type): static
     {
         $this->type = $type;
 

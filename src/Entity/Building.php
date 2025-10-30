@@ -42,8 +42,6 @@ class Building
     #[ORM\JoinColumn(nullable: false)]
     private ?City $city = null;
 
-    #[ORM\Column(length: 255)]
-    private ?string $coordinates = null;
 
     /**
      * @var Collection<int, Blackout>
@@ -54,6 +52,12 @@ class Building
     #[ORM\ManyToOne(inversedBy: 'buildings')]
     #[ORM\JoinColumn(nullable: false)]
     private ?Organizations $organization = null;
+
+    #[ORM\Column]
+    private ?float $lat = null;
+
+    #[ORM\Column]
+    private ?float $lon = null;
 
     public function __construct()
     {
@@ -161,17 +165,6 @@ class Building
         return $this;
     }
 
-    public function getCoordinates(): ?string
-    {
-        return $this->coordinates;
-    }
-
-    public function setCoordinates(string $coordinates): static
-    {
-        $this->coordinates = $coordinates;
-
-        return $this;
-    }
 
     /**
      * @return Collection<int, Blackout>
@@ -208,6 +201,30 @@ class Building
     public function setOrganization(?Organizations $organization): static
     {
         $this->organization = $organization;
+
+        return $this;
+    }
+
+    public function getLat(): ?float
+    {
+        return $this->lat;
+    }
+
+    public function setLat(float $lat): static
+    {
+        $this->lat = $lat;
+
+        return $this;
+    }
+
+    public function getLon(): ?float
+    {
+        return $this->lon;
+    }
+
+    public function setLon(float $lon): static
+    {
+        $this->lon = $lon;
 
         return $this;
     }

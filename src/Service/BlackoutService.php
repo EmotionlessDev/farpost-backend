@@ -3,15 +3,24 @@
 namespace App\Service;
 
 use App\Repository\BlackoutRepository;
+use App\Dto\BlackoutCreateDto;
+use App\Entity\Blackout;
+use App\Repository\BuildingRepository;
+use Doctrine\ORM\EntityManagerInterface;
 use DateMalformedStringException;
 use DateTimeImmutable;
 use DateTime;
 use InvalidArgumentException;
 
+
 readonly class BlackoutService
 {
 
-    public function __construct(private BlackoutRepository $blackoutRepository)
+    public function __construct(
+        private BlackoutRepository $blackoutRepository,
+        private BuildingRepository $buildingRepository,
+        private EntityManagerInterface $em,
+    )
     {
 
     }
@@ -55,5 +64,36 @@ readonly class BlackoutService
             'type' => $countByType,
         ];
     }
+    public function createBlackouts(BlackoutCreateDto $dto): array
+    {
+        $createdBlackouts = [];
+
+        foreach ($dto->buildings as $coords) {
+            $lat = (float) ($coords['lat'] ?? 0);
+            $lng = (float) ($coords['lng'] ?? 0);
+
+            $building = $this->buildingRepository->findByCoordinates($lat, $lng);
+
+            if (!$building) {
+                continue;
+            }
+
+            $blackout = new Blackout();
+            $blackout->setType($dto->type);
+            $blackout->setDescription($dto->description);
+            $blackout->setStartDate($dto->startDate);
+            $blackout->setEndDate($dto->endDate);
+            $blackout->setSource($dto->source);
+            $blackout->addBuilding($building);
+
+            $this->em->persist($blackout);
+            $createdBlackouts[] = $blackout;
+        }
+
+        $this->em->flush();
+
+        return $createdBlackouts;
+    }
+
 
 }

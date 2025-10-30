@@ -16,6 +16,21 @@ class BuildingRepository extends ServiceEntityRepository
         parent::__construct($registry, Building::class);
     }
 
+    public function findByCoordinates(float $lat, float $lon): ?Building
+    {
+        $epsilon = 0.00001;
+
+        return $this->createQueryBuilder('b')
+            ->andWhere('b.lat BETWEEN :lat_min AND :lat_max')
+            ->andWhere('b.lon BETWEEN :lon_min AND :lon_max')
+            ->setParameter('lat_min', $lat - $epsilon)
+            ->setParameter('lat_max', $lat + $epsilon)
+            ->setParameter('lon_min', $lon - $epsilon)
+            ->setParameter('lon_max', $lon + $epsilon)
+            ->getQuery()
+            ->getOneOrNullResult();
+    }
+
     //    /**
     //     * @return Building[] Returns an array of Building objects
     //     */
