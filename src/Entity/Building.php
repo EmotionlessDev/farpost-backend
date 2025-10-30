@@ -48,7 +48,7 @@ class Building
     /**
      * @var Collection<int, Blackout>
      */
-    #[ORM\ManyToMany(targetEntity: Blackout::class, mappedBy: 'Ðbuilding')]
+    #[ORM\ManyToMany(targetEntity: Blackout::class, mappedBy: 'building')]
     private Collection $blackouts;
 
     #[ORM\ManyToOne(inversedBy: 'buildings')]

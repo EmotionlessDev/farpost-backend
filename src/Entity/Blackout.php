@@ -36,12 +36,12 @@ class Blackout
      * @var Collection<int, Building>
      */
     #[ORM\ManyToMany(targetEntity: Building::class, inversedBy: 'blackouts')]
-    private Collection $�building;
+    private Collection $building;
 
 
     public function __construct()
     {
-        $this->�building = new ArrayCollection();
+        $this->building = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -114,13 +114,13 @@ class Blackout
      */
     public function get�building(): Collection
     {
-        return $this->�building;
+        return $this->building;
     }
 
     public function addBuilding(Building $building): static
     {
-        if (!$this->�building->contains($building)) {
-            $this->�building->add($building);
+        if (!$this->building->contains($building)) {
+            $this->building->add($building);
         }
 
         return $this;
@@ -128,7 +128,7 @@ class Blackout
 
     public function removeBuilding(Building $building): static
     {
-        $this->�building->removeElement($building);
+        $this->building->removeElement($building);
 
         return $this;
     }
