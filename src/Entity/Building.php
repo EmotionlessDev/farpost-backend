@@ -51,6 +51,10 @@ class Building
     #[ORM\ManyToMany(targetEntity: Blackout::class, mappedBy: 'Ðbuilding')]
     private Collection $blackouts;
 
+    #[ORM\ManyToOne(inversedBy: 'buildings')]
+    #[ORM\JoinColumn(nullable: false)]
+    private ?Organizations $organization = null;
+
     public function __construct()
     {
         $this->blackouts = new ArrayCollection();
@@ -192,6 +196,18 @@ class Building
         if ($this->blackouts->removeElement($blackout)) {
             $blackout->removeBuilding($this);
         }
+
+        return $this;
+    }
+
+    public function getOrganization(): ?Organizations
+    {
+        return $this->organization;
+    }
+
+    public function setOrganization(?Organizations $organization): static
+    {
+        $this->organization = $organization;
 
         return $this;
     }

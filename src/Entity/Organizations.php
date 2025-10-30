@@ -19,14 +19,15 @@ class Organizations
     private ?string $name = null;
 
     /**
-     * @var Collection<int, Blackout>
+     * @var Collection<int, Building>
      */
-    #[ORM\OneToMany(targetEntity: Blackout::class, mappedBy: 'organization')]
-    private Collection $blackouts;
+    #[ORM\OneToMany(targetEntity: Building::class, mappedBy: 'organization')]
+    private Collection $buildings;
+
 
     public function __construct()
     {
-        $this->blackouts = new ArrayCollection();
+        $this->buildings = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -47,29 +48,29 @@ class Organizations
     }
 
     /**
-     * @return Collection<int, Blackout>
+     * @return Collection<int, Building>
      */
-    public function getBlackouts(): Collection
+    public function getBuildings(): Collection
     {
-        return $this->blackouts;
+        return $this->buildings;
     }
 
-    public function addBlackout(Blackout $blackout): static
+    public function addBuilding(Building $building): static
     {
-        if (!$this->blackouts->contains($blackout)) {
-            $this->blackouts->add($blackout);
-            $blackout->setOrganization($this);
+        if (!$this->buildings->contains($building)) {
+            $this->buildings->add($building);
+            $building->setOrganization($this);
         }
 
         return $this;
     }
 
-    public function removeBlackout(Blackout $blackout): static
+    public function removeBuilding(Building $building): static
     {
-        if ($this->blackouts->removeElement($blackout)) {
+        if ($this->buildings->removeElement($building)) {
             // set the owning side to null (unless already changed)
-            if ($blackout->getOrganization() === $this) {
-                $blackout->setOrganization(null);
+            if ($building->getOrganization() === $this) {
+                $building->setOrganization(null);
             }
         }
 

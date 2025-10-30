@@ -38,9 +38,6 @@ class Blackout
     #[ORM\ManyToMany(targetEntity: Building::class, inversedBy: 'blackouts')]
     private Collection $�building;
 
-    #[ORM\ManyToOne(inversedBy: 'blackouts')]
-    #[ORM\JoinColumn(nullable: false)]
-    private ?Organizations $organization = null;
 
     public function __construct()
     {
@@ -136,15 +133,4 @@ class Blackout
         return $this;
     }
 
-    public function getOrganization(): ?Organizations
-    {
-        return $this->organization;
-    }
-
-    public function setOrganization(?Organizations $organization): static
-    {
-        $this->organization = $organization;
-
-        return $this;
-    }
 }
