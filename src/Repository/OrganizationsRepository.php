@@ -16,6 +16,15 @@ class OrganizationsRepository extends ServiceEntityRepository
         parent::__construct($registry, Organizations::class);
     }
 
+    public function findAllWithBuildings(): array
+    {
+        return $this->createQueryBuilder('o')
+            ->leftJoin('o.buildings', 'b')
+            ->addSelect('b')
+            ->getQuery()
+            ->getResult();
+    }
+
     //    /**
     //     * @return Organizations[] Returns an array of Organizations objects
     //     */
