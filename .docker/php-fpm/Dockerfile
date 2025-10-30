@@ -1,7 +1,8 @@
 FROM php:8.4.4-fpm-alpine
 
 # Install packages
-RUN apk add --no-cache curl git build-base zlib-dev oniguruma-dev autoconf bash php84-pdo_pgsql
+RUN apk add --no-cache curl git build-base zlib-dev oniguruma-dev autoconf bash postgresql-dev
+RUN docker-php-ext-install pdo pdo_pgsql
 
 # Configure non-root user.
 ARG PUID=1000
