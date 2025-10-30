@@ -19,6 +19,19 @@ Backend предоставляет необходимые эндпоинты д�
 - Схема таблиц:
 <img width="1064" height="717" alt="image" src="https://github.com/user-attachments/assets/6e475a63-9539-4c46-975e-8574e6b778a7" />
 
+## ⚙️ Setup & Installation
+1. Склонируйте репозиторий:<br>
+```
+git clone git@github.com:EmotionlessDev/farpost-backend.git
+cd farpost-backend
+```
+2. Создайте файл `.env.local` на основе `.env` и настройте параметры базы данных PostgreSQL.
+3. Запустите контейнеры Docker:<br>
+```
+make dc-up
+```
+4. Приложение должно быть доступно по адресу `http://localhost:8000`.
+
 ## ⚙️ Technologies  
 - **PHP 8.2+**  
 - **Symfony 7**  
